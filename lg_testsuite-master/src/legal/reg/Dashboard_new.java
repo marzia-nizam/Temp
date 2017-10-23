@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -26,7 +27,7 @@ public class Dashboard_new extends LegalRegressionSharedFunctions {
 		System.out.println("The welcome message is visible");
 		LegalRegressionSharedFunctions.VerifyListofElementsVisibility("//div[@class='text-center no-padding']/img");
 		CheckVisibility(".//*[@id='page-wrapper']/div[1]/div[2]/div[1]/div/div/div/table/thead/tr/th[1]","Awaiting Approval");
-		List<WebElement> approvaldocs = (List<WebElement>) driver.findElements(By.xpath("//th[contains(text(),'Awaiting Approval')]//following::td[@class='project-title']/span/a"));
+		List<WebElement> approvaldocs = (List<WebElement>) driver.findElements(By.xpath("//span[contains(text(),'Awaiting Approval')]//following::td[@class='project-title']/span/a"));
 	  	int approvaldocscount = approvaldocs.size();
 	  	System.out.println( "The number of documents under Awaiting Approval status are " + approvaldocscount);
 	  			  for(int i = 1; i < approvaldocscount; ++i) {
@@ -46,7 +47,7 @@ public class Dashboard_new extends LegalRegressionSharedFunctions {
 	  			    
 	  			  }
 		CheckVisibility(".//*[@id='page-wrapper']/div[1]/div[2]/div[2]/div/div/div/table/thead/tr/th[1]","Recently Viewed");
-		List<WebElement> rvdocs = (List<WebElement>) driver.findElements(By.xpath("//th[contains(text(),'Recently Viewed')]//following::td[@class='project-title']/span/a"));
+		List<WebElement> rvdocs = (List<WebElement>) driver.findElements(By.xpath("//span[contains(text(),'Recently Viewed')]//following::td[@class='project-title']/span/a"));
 	  	int rvdocscount = rvdocs.size();
 	  	System.out.println( "The number of documents under Recently Viewed status are " + rvdocscount);
 	  			  for(int i = 1; i < rvdocscount; ++i) {
@@ -76,12 +77,15 @@ public class Dashboard_new extends LegalRegressionSharedFunctions {
          
      	  //open a new firefox window
      	  WebDriver driver2=null;
-     	
+     
      		ChromeOptions options1 = new ChromeOptions();
      		options1.addArguments("--start-maximized");
      	    driver2 = new ChromeDriver( options1 );
      	  //in the new window, go to the intended page
-     	  driver2.navigate().to("https://ext.legalgateway.com.au/admin/");
+     	//  driver2.navigate().to("https://dev.legalgateway.com.au/admin/");
+     		 JavascriptExecutor jse = (JavascriptExecutor)driver2;
+      		
+     	 driver2.navigate().to("https://ext.legalgateway.com.au/admin/");
      	  Thread.sleep(2000);
      	 driver2.findElement(By.id("username")).sendKeys("automation.user.ext@gmail.com");
  		driver2.findElement(By.id("password")).sendKeys("password1234567890");
@@ -97,6 +101,7 @@ public class Dashboard_new extends LegalRegressionSharedFunctions {
  		driver2.findElement(By.linkText("Add another User Role")).click();
  		 Select oSelect2 = new Select(driver2.findElement(By.name("roles-1-role")));
  		 oSelect2.selectByVisibleText("THE TESTING ACCOUNT: User");
+ 		jse.executeScript("arguments[0].scrollIntoView()", driver2.findElement(By.xpath("//input[@value='Save']")));
  		 driver2.findElement(By.xpath("//input[@value='Save']")).click();
  		Thread.sleep(20000);
  		driver2.findElement(By.linkText("Home")).click();
@@ -104,19 +109,25 @@ public class Dashboard_new extends LegalRegressionSharedFunctions {
  		driver2.findElement(By.linkText("Apps")).click();
  		Thread.sleep(2000);
  		driver2.findElement(By.linkText("Status App")).click();
- 		Thread.sleep(2000);
+ 		Thread.sleep(20000);
+ 		jse.executeScript("arguments[0].scrollIntoView()", driver2.findElement(By.linkText("Add another Organisation App Permission")));
  		driver2.findElement(By.linkText("Add another Organisation App Permission")).click();
  		Select oSelect3 = new Select(driver2.findElement(By.name("organisation_permissions-0-organisation")));
 		 oSelect3.selectByVisibleText("THE TESTING ACCOUNT");
+		 Thread.sleep(30000);
+		 jse.executeScript("arguments[0].scrollIntoView()",driver2.findElement(By.xpath("//input[@value='Save']")));
  		driver2.findElement(By.xpath("//input[@value='Save']")).click();
  		driver2.findElement(By.linkText("Home")).click();
  		Thread.sleep(2000);
+ 		jse.executeScript("arguments[0].scrollIntoView()",driver2.findElement(By.linkText("Roles")));
  		driver2.findElement(By.linkText("Roles")).click();
- 		Thread.sleep(2000);
+ 		Thread.sleep(20000);
+ 		jse.executeScript("arguments[0].scrollIntoView()",driver2.findElement(By.xpath(".//a[contains(text(),'THE TESTING ACCOUNT')]")));
  		driver2.findElement(By.xpath(".//a[contains(text(),'THE TESTING ACCOUNT')]")).click();
  		Thread.sleep(20000);
  		driver2.findElement(By.xpath(".//a[contains(text(),'User')]")).click();
  		Thread.sleep(2000);
+ 		jse.executeScript("arguments[0].scrollIntoView()", driver2.findElement(By.linkText("Add another App Permission")));
  		driver2.findElement(By.linkText("Add another App Permission")).click();
  		Select oSelect4 = new Select(driver2.findElement(By.name("app_permissions-1-app")));
 		 oSelect4.selectByVisibleText("Status App");
@@ -138,8 +149,10 @@ public class Dashboard_new extends LegalRegressionSharedFunctions {
     		ChromeOptions options2 = new ChromeOptions();
     		options2.addArguments("--start-maximized");
     	    driver3 = new ChromeDriver( options1 );
+    	    JavascriptExecutor jse2 = (JavascriptExecutor)driver3;
     	  //in the new window, go to the intended page
     	  driver3.navigate().to("https://ext.legalgateway.com.au/admin/");
+    	  //  driver3.navigate().to("https://dev.legalgateway.com.au/admin/");
     	  Thread.sleep(2000);
     	 driver3.findElement(By.id("username")).sendKeys("automation.user.ext@gmail.com");
 		driver3.findElement(By.id("password")).sendKeys("password1234567890");
@@ -151,6 +164,7 @@ public class Dashboard_new extends LegalRegressionSharedFunctions {
 		
 		element2.click();
 		Thread.sleep(20000);
+		jse2.executeScript("arguments[0].scrollIntoView()", driver3.findElement(By.xpath(".//*[@id='id_organisation_permissions-0-DELETE']")));
 		driver3.findElement(By.xpath(".//*[@id='id_organisation_permissions-0-DELETE']")).click();
 		Thread.sleep(20000);
 		driver3.findElement(By.xpath("//input[@value='Save']")).click();
@@ -213,6 +227,7 @@ public class Dashboard_new extends LegalRegressionSharedFunctions {
             
             driver.findElement(By.xpath("//span[text()='Round 3']//following::input[@class='qtext'][4]")).clear();
             driver.findElement(By.xpath("//span[text()='Round 3']//following::input[@class='qtext'][4]")).sendKeys("tehrintas@outlook.com");
+            LegalRegressionSharedFunctions.ScrollDownintoView("//button[contains(text(),'Fire Web Service Call')]");
             driver.findElement(By.xpath("//button[contains(text(),'Fire Web Service Call')]")).click();
             
             String downloadFilepath = "c:\\download";
