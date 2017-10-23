@@ -302,7 +302,7 @@ public class Settings extends LegalRegressionSharedFunctions{
 	  
 	  waitFunction(1000);
 	  ///driver.findElement(By.xpath(".//h2[contains(text(),'Manager')]//following::input[@placeholder='Add User']")).click();///
-	  driver.findElement(By.xpath(".//h2[text()='Manager']//following::input[1]")).click();
+	//  driver.findElement(By.xpath(".//h2[text()='Manager']//following::input[1]")).click();
 	  ///driver.findElement(By.xpath(".//h2[contains(text(),'Manager')]//following::input[@placeholder='Add User']")).sendKeys("Cersei Lannister");////
 	  ///driver.findElement(By.xpath(".//*[@id='page-wrapper']/div[2]/div/div/div/div[1]/div/div/div[1]/div/div/div/input")).sendKeys("Cersei Lannister");
 	 /// driver.findElement(By.xpath(".//h2[text()='Manager']//following::input[1]")).sendKeys("Cersei Lannister");
@@ -353,7 +353,7 @@ public class Settings extends LegalRegressionSharedFunctions{
       driver.findElement(By.xpath(".//*[@id='user-permissions-pane-organisation-permissions']/div/div/span/button")).click();
 
       driver.findElement(By.xpath(".//*[@id='user-permissions-pane-organisation-permissions']/div/div/div/div/div/div/input")).click();
-      driver.findElement(By.xpath(".//*[@id='user-permissions-pane-organisation-permissions']/div/div/div/div/div/div/input")).sendKeys("Test Organisation");
+      driver.findElement(By.xpath(".//*[@id='user-permissions-pane-organisation-permissions']/div/div/div/div/div/div/input")).sendKeys("Test Org");
       driver.findElement(By.xpath(".//*[@id='user-permissions-pane-organisation-permissions']/div/div/div/div/ul/li/a/span/strong")).click();
       driver.findElement(By.xpath(".//*[@id='user-permissions-pane-organisation-permissions']/div/div/span/button")).click();
       Thread.sleep(20000);
@@ -426,7 +426,7 @@ public  void UserVerification() throws InterruptedException
 
 public void UserEditVerification() throws InterruptedException
 {
-	 String Username="test zzz account edt";
+	 String Username="test acc";
 	 driver.findElement(By.xpath(".//*[@id='search']")).click();
 	 driver.findElement(By.xpath(".//*[@id='search']")).sendKeys(Username);
 	 Thread.sleep(2000);
@@ -449,7 +449,7 @@ public void UserEditVerification() throws InterruptedException
 	 driver.findElement(By.xpath(".//*[@id='firstName']")).sendKeys(Username);
 	 driver.findElement(By.xpath(".//*[@id='lastName']")).sendKeys("disha");
 	 ///driver.findElement(By.xpath(".//*[@id='email']")).sendKeys("tasnuvatehrin@gmail.com");
-	 driver.findElement(By.xpath(".//*[@id='email']")).sendKeys("test4fest+643@gmail.com");
+	 driver.findElement(By.xpath(".//*[@id='email']")).sendKeys("test4fest+226265@gmail.com");
 	 
 	 driver.findElement(By.xpath(".//*[@id='update-user-btn']")).click();
 	 Thread.sleep(20000);
@@ -458,12 +458,12 @@ public void UserEditVerification() throws InterruptedException
 	 Thread.sleep(20000);
 	 driver.findElement(By.xpath(".//button[contains(.,'Reset Password')]")).click();
 	 Thread.sleep(20000);
-	 AssertVerification(".//*[@id='page-wrapper']/div[2]/div/div/div","Success: a password reset link has been email to test4fest+643@gmail.com" );
+	 AssertVerification(".//*[@id='page-wrapper']/div[2]/div/div/div","Success: a password reset link has been email to test4fest+226265@gmail.com" );
 	 CheckMailandSign("test4fest@gmail.com","12345mmm");
 	 Thread.sleep(10000);
 	 driver.findElement(By.xpath("//*[@id='page-wrapper']/div[3]/div/div[1]/div/div/div[1]/div/div/button[2]/div")).click();
 	 Thread.sleep(20000);
-	 AssertVerification(".//*[@id='page-wrapper']/div[2]/div/div/div","test4fest+643@gmail.com has been deleted" );
+	 AssertVerification(".//*[@id='page-wrapper']/div[2]/div/div/div","test4fest+226265@gmail.com has been deleted" );
 }
 
 public void CheckMailandSign(String email,String password) throws InterruptedException
