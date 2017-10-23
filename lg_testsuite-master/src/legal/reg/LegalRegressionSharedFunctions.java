@@ -53,7 +53,7 @@ public class LegalRegressionSharedFunctions {
 	    getDriver();
 		//driver= new FirefoxDriver();
 		driver.get("https://ext.legalgateway.com.au/gateway/login?next=/gateway/");
-	
+	   
 	  
 	    
 	}
@@ -86,6 +86,11 @@ public class LegalRegressionSharedFunctions {
 		
 		System.out.println("Logged in successfully");
 		
+	}
+	public static void ScrollDownintoView(String xpath)
+	{
+		JavascriptExecutor jse = (JavascriptExecutor)driver;
+		jse.executeScript("arguments[0].scrollIntoView()", driver.findElement(By.xpath(xpath)));
 	}
 	
 	
@@ -301,7 +306,11 @@ public static void VerifyListofElementsVisibility(String xpath)
 	  			 
 	  
 	  }
-	  public void switchToFrame(int iframe) {
+	
+		
+		
+	
+	  public  void switchToFrame(int iframe) {
 
 	      driver.switchTo().defaultContent();
 
@@ -316,10 +325,53 @@ public static void VerifyListofElementsVisibility(String xpath)
 			driver.findElement(By.id("login-button")).click();
 			ImplicitWait(40);
 			Thread.sleep(8000);
-			
-			Assert.assertTrue( driver.getTitle().contains("Dashboard - Plexus Legal Gateway") , "Error logging in");
+			/*boolean applicationError = true;
+			do
+			{
+				try
+				{
+					Thread.sleep(8000);
+					//if(!applicationError)
+					if(driver.findElement(By.xpath(".//div[contains(text(),'Application error')]")).isDisplayed())
+					{
+						
+						System.out.println("Application error displayed, refreshing page...");
+						driver.navigate().refresh();
+						Thread.sleep(8000);
+					}
+				}
+				catch(Exception e)
+				{
+					System.out.println("Application error did not appear");
+					applicationError = false;
+				}
+			}while(applicationError!=false);*/
+			Assert.assertTrue( driver.getTitle().contains("Dashboard") , "Error logging in");
 		    //CheckVisibility("//h1[@id='welcome-message']","Afternoon, disha. What legal support do you require?");
-			if(driver.getTitle().contains("Dashboard - Plexus Legal Gateway"))
+			if(driver.getTitle().contains("Dashboard"))
+			{
+				System.out.println("Logged in successfully");
+			}
+			else
+			{
+				System.out.println("Error logging in");
+			}
+			
+		}
+		
+		public void loginToPlexusFromLoginPage( String email, String password) throws InterruptedException
+		{
+			//driver.get(url);
+			Thread.sleep(2000);
+			driver.findElement(By.id("username")).sendKeys(email);
+			driver.findElement(By.id("password")).sendKeys(password);
+			driver.findElement(By.id("login-button")).click();
+			ImplicitWait(40);
+			Thread.sleep(8000);
+			
+			Assert.assertTrue( driver.getTitle().contains("Dashboard") , "Error logging in");
+		    //CheckVisibility("//h1[@id='welcome-message']","Afternoon, disha. What legal support do you require?");
+			if(driver.getTitle().contains("Dashboard"))
 			{
 				System.out.println("Logged in successfully");
 			}
@@ -334,6 +386,7 @@ public static void VerifyListofElementsVisibility(String xpath)
 		{
 			driver.findElement(By.xpath(".//div[@class='sidebar-collapse']//../ul[1]//../li/a//following::span[text()='"+itemName+"']")).click();
 		}
+	  
 		
 	 public static void SearchDocumentswithStatus(String AppStatus) throws InterruptedException
 	  {
@@ -749,6 +802,7 @@ public static void VerifyListofElementsVisibility(String xpath)
 
 	      } 
 	 }
+	 
 	 public static void DecsendingOrderVerification(String Factors) throws InterruptedException
 	  {
 		  
@@ -862,6 +916,7 @@ public static void VerifyListofElementsVisibility(String xpath)
 	        robot.keyRelease(KeyEvent.VK_ENTER);
 	        waitFunction(6000);
 	    }
+	    
 	    public static void waitFunction(int time)
 	    {
 	        try
